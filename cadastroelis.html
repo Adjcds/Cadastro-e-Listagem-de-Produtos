@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Para mais informações e para acessar o projeto completo, visite o repositório no GitHub:
+  https://github.com/Adjcds/Cadastro-e-Listagem-de-Produtos -->
+  <title>Cadastro e Listagem de Produtos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .form-container, .list-container {
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-container h2, .list-container h2 {
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    .form-group button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .form-group button:hover {
+      background-color: #0056b3;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container" id="form-container">
+    <h2>Cadastrar Produto</h2>
+    <div class="form-group">
+      <label for="nome">Nome do produto</label>
+      <input type="text" id="nome" required>
+    </div>
+    <div class="form-group">
+      <label for="descricao">Descrição do produto</label>
+      <input type="text" id="descricao" required>
+    </div>
+    <div class="form-group">
+      <label for="valor">Valor do produto</label>
+      <input type="number" id="valor" required>
+    </div>
+    <div class="form-group">
+      <label for="disponivel">Disponível para venda</label>
+      <select id="disponivel">
+        <option value="sim">Sim</option>
+        <option value="não">Não</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <button onclick="cadastrarProduto()">Cadastrar</button>
+    </div>
+  </div>
+  
+  <div class="list-container" id="list-container" style="display:none;">
+    <h2>Listagem de Produtos</h2>
+    <table id="product-table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="form-group">
+      <button onclick="mostrarFormulario()">Cadastrar Novo Produto</button>
+    </div>
+  </div>
+
+  <script>
+    let produtos = [];
+
+    function cadastrarProduto() {
+      const nome = document.getElementById('nome').value;
+      const descricao = document.getElementById('descricao').value;
+      const valor = parseFloat(document.getElementById('valor').value);
+      const disponivel = document.getElementById('disponivel').value;
+
+      if(nome && descricao && !isNaN(valor) && (disponivel === 'sim' || disponivel === 'não')) {
+        const produto = { nome, descricao, valor, disponivel };
+        produtos.push(produto);
+        produtos.sort((a, b) => a.valor - b.valor);
+        atualizarListagem();
+        mostrarListagem();
+      } else {
+        alert('Preencha todos os campos corretamente.');
+      }
+    }
+
+    function atualizarListagem() {
+      const tbody = document.querySelector('#product-table tbody');
+      tbody.innerHTML = '';
+      produtos.forEach(produto => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${produto.nome}</td>
+          <td>R$ ${produto.valor.toFixed(2)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function mostrarFormulario() {
+      document.getElementById('form-container').style.display = 'block';
+      document.getElementById('list-container').style.display = 'none';
+    }
+
+    function mostrarListagem() {
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('list-container').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
