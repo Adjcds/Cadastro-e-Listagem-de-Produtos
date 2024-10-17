@@ -15,7 +15,21 @@
     </div>
     <div class="form-group">
       <label for="descricao">Descrição do produto</label>
-      <input type="text" id="descricao" required>
+      <select id="descricao" required>
+        <option value="">Selecione uma categoria</option>
+        <option value="comida">Comida</option>
+        <option value="bebida">Bebida</option>
+        <option value="massa">Massa</option>
+        <option value="legumes">Legumes</option>
+        <option value="frutas">Frutas</option>
+        <option value="laticínios">Laticínios</option>
+        <option value="carnes">Carnes</option>
+        <option value="peixes">Peixes</option>
+        <option value="doces">Doces</option>
+        <option value="salgados">Salgados</option>
+        <option value="congelados">Congelados</option>
+        <option value="mercearia">Mercearia</option>
+      </select>
     </div>
     <div class="form-group">
       <label for="valor">Valor do produto</label>
@@ -29,7 +43,14 @@
       </select>
     </div>
     <div class="form-group">
-      <button onclick="cadastrarProduto()">Cadastrar</button>
+      <div class="form-group">
+        <p style="color: rgb(255, 255, 255); font-weight: bold; font-size: 13px;">
+          Atenção: Após colocar a descrição do produto uma vez, ela não poderá ser trocada, apenas o valor do produto.
+        </p>
+        <button type="button" onclick="cadastrarProduto()">Cadastrar Produto</button>
+        <button type="button" onclick="mostrarListagem()" style="margin-top: 10px;">Ver Produtos</button>
+      </div>
+      
     </div>
   </div>
   
@@ -39,14 +60,18 @@
       <thead>
         <tr>
           <th>Nome</th>
+          <th>Descrição</th>
           <th>Valor</th>
+          <th>Ações</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
+    <br>
     <div class="form-group">
       <button onclick="mostrarFormulario()">Cadastrar Novo Produto</button>
     </div>
+
   </div>
 
   <script src="script.js"></script>
